@@ -9,7 +9,7 @@
 #include <EventItemsSpawner>
 #include <multicolors>
 
-// #pragma newdecls required
+#pragma newdecls required
 
 enum DropItem {
 	diId, 
