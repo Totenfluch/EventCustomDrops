@@ -33,7 +33,14 @@ public Plugin myinfo =
 };
 
 public void OnPluginStart() {
+	RegConsoleCmd("sm_testarray", testArray, "tests");
+}
 
+public Action testArray(int client, int args) {
+	for (int x = 0; x < g_iLoadedDrops; x++) {
+		PrintToConsole(client, "%d :: %i: %s %s %s", x, g_eCustomItemDrops[x][diStoreId], g_eCustomItemDrops[x][diName], g_eCustomItemDrops[x][diModel], g_eCustomItemDrops[x][diAnimation]);
+	}
+	return Plugin_Handled;
 }
 
 public bool loadAllDrops() {
@@ -84,6 +91,12 @@ public void clearAllDrops() {
 }
 
 public void OnConfigsExecuted() {
+	CreateTimer(10.0, postLoadItems);
+	loadAllDrops();
+	loadItems();
+}
+
+public Action postLoadItems(Handle Timer) {
 	loadAllDrops();
 	loadItems();
 }
