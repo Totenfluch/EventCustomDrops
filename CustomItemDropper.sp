@@ -9,7 +9,7 @@
 #include <EventItemsSpawner>
 #include <multicolors>
 
-#pragma newdecls required
+// #pragma newdecls required
 
 enum DropItem {
 	diId, 
@@ -17,7 +17,7 @@ enum DropItem {
 	String:diName[128], 
 	String:diModel[128], 
 	String:diAnimation[64], 
-	float:diDroprate, 
+	Float:diDroprate, 
 }
 
 int g_iLoadedDrops = 0;
@@ -120,7 +120,6 @@ public void loadItems() {
 }
 
 public void itemspawner_OnItemPickupBasic(int client, float x, float y, float z) {
-	bool drop = false;
 	for (int i = 0; i < g_iLoadedDrops; i++) {
 		float chance = GetRandomFloat(0.0, 100.0);
 		if (chance <= g_eCustomItemDrops[i][diDroprate]) {
