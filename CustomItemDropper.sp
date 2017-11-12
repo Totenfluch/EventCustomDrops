@@ -33,7 +33,7 @@ public Plugin myinfo =
 };
 
 public void OnPluginStart() {
-	RegConsoleCmd("sm_testarray", testArray, "tests");
+	RegAdminCmd("sm_testarray", testArray, ADMFLAG_ROOT, "tests if items are correctly loaded");
 }
 
 public Action testArray(int client, int args) {
@@ -83,6 +83,7 @@ public bool loadAllDrops() {
 }
 
 public void clearAllDrops() {
+	g_iLoadedDrops = 0;
 	for (int i = 0; i < 2048; i++) {
 		strcopy(g_eCustomItemDrops[i][diName], 128, "");
 		strcopy(g_eCustomItemDrops[i][diModel], 128, "");
