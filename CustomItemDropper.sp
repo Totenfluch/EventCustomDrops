@@ -7,6 +7,7 @@
 #include <sdktools>
 #include <store>
 #include <EventItemsSpawner>
+#include <multicolors>
 
 #pragma newdecls required
 
@@ -32,7 +33,7 @@ public Plugin myinfo =
 };
 
 public void OnPluginStart() {
-	RegConsoleCmd("sm_allitems", allItemsCb, "Displays all items");
+
 }
 
 public bool loadAllDrops() {
@@ -82,7 +83,7 @@ public void clearAllDrops() {
 	}
 }
 
-public void OnMapStart() {
+public void OnConfigsExecuted() {
 	loadAllDrops();
 	loadItems();
 }
@@ -136,7 +137,7 @@ public void itemspawner_OnItemPickupBasic(int client, float x, float y, float z)
 						CreateTimer(5.0, killProp, EntIndexToEntRef(prop));
 					}
 				}
-				PrintToChat(client, "You have received %s !!", g_eCustomItemDrops[i][diName]);
+				CPrintToChat(client, "{darkred}[{green}GGC{darkred}]{green}You have received the Pet {darkred}%s {green}!!", g_eCustomItemDrops[i][diName]);
 				Store_GiveItem(client, g_eCustomItemDrops[i][diStoreId], 1, 0, 10);
 			}
 			break;
@@ -148,13 +149,5 @@ public Action killProp(Handle Timer, any data) {
 	int entity = EntRefToEntIndex(data);
 	if (IsValidEntity(entity)) {
 		AcceptEntityInput(entity, "kill");
-	}
-}
-
-public Action allItemsCb(int client, int args) {
-	for (int i = 0; i < STORE_MAX_ITEMS; i++) {
-		int ti[Store_Item];
-		Store_GetItem(i, ti);
-		PrintToConsole(client, "%s %s %s %i %i", ti[szName], ti[szUniqueId], ti[szShortcut], ti[iId], ti[iPrice]);
 	}
 }
